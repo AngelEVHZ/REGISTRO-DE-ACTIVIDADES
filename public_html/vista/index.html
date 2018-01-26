@@ -10,15 +10,72 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
          
+        <!-- bootstrap y jquery imports copy paste -->
          <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
          <script type="text/javascript" src="../controlador/jquery/jquery-3.3.1.js"></script>
          <script type="text/javascript" src="../controlador/bootstrap/bootstrap.min.js"></script>
          <script type="text/javascript" src="../controlador/jquery/jquery-3.3.1.min.js"></script>
+         
+         
+         <script type="text/javascript" src="../controlador/iniciarSesion.js"></script>
         
     </head>
     <body>
+         <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">UP CHIAPAS</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+              </ul>
+              <button type="button" class="btn btn-danger navbar-btn " data-toggle="modal" data-target="#iniciarSesionM">Iniciar Sesion</button>
+            </div>
+          </nav>
         
         
+        <!-- iniciar session -->
+    <center>
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#iniciarSesionM">Soy Maestro</button>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#iniciarSesionM">Soy Tutor</button>
+        <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#iniciarSesionM">Soy Alumno</button>
+    </center>
+        <!-- Modal -->
+        <div id="iniciarSesionM" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Iniciar Sesion</h4>
+              </div>
+              <div class="modal-body">
+                
+                  <div class="form-group">
+                    <label for="usr">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre">
+                  </div>
+                  <div class="form-group">
+                    <label for="pwd">Contraseña:</label>
+                    <input type="password" class="form-control" id="contrasena">
+                  </div>
+                  
+                  
+                
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-lg" onclick="iniciarSesion()">Entrar</button>
+                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
   
         
     </body>
