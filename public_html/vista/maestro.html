@@ -16,6 +16,7 @@ and open the template in the editor.
          <script type="text/javascript" src="../controlador/jquery/jquery-3.3.1.min.js"></script>
          
          <script type="text/javascript" src="../controlador/iniciarSesion.js"></script>
+         <script type="text/javascript" src="../controlador/maestroContenido.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -34,25 +35,22 @@ and open the template in the editor.
 
         <br><br>
          <label >Materia:</label>
-        <select class="form-control" id="materia"  style="width:200px">
-          <option>IA</option>
-          <option>CALCULO</option>
-          <option>ECUACIONES</option>
-          <option>VALORES 5</option>
+        <select class="form-control" id="materia"  onchange="cargarTabla()" style="width:200px">
+         
         </select>
         
          <br>
         
          <label >Corte:</label>
-        <select class="form-control" id="corteMateria"  style="width:200px">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
+        <select class="form-control" id="corteMateria" onchange="cargarTabla()" style="width:200px">
+          <option value="1">1</option>
+          <option  value="2">2</option>
+          <option  value="3">3</option>
         </select>
         
          <br><br> 
          
-        <table class="table">
+        <table class="table" id="table">
             <thead>
               <tr>
                 <th>Matricula</th>
@@ -105,13 +103,13 @@ and open the template in the editor.
                   </div>
                    <label for="actividadCorte">Corte</label>
                     <select class="form-control" id="actividadCorte"  style="width:200px">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
                     </select>       
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" onclick="">Crear</button>
+                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" onclick="nuevaActividad()">Crear</button>
                 <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
               </div>
             </div>

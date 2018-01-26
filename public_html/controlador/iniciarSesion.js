@@ -8,12 +8,25 @@ function iniciarSesion(){
     var nombre= $("#nombre").val();
     var contra= $("#contrasena").val();
     
-    maestro = true;
-    if(maestro)
-        location.href ="maestro.html";
-    else
-        location.href ="tutor.html";
-    
+
+    $.ajax({
+		url: "../controlador/PHP/iniciarSesion.php",
+		data: {nombre:nombre,contra:contra},
+		type: "POST",
+		datatype: "text",
+		beforeSend: function (xhr) {
+		},
+		success: function (respuesta) {
+			 contenido = JSON.parse(respuesta);
+                        if(contenido[0] == "1"){
+                             sessionStorage.setItem("idMaestro", contenido[1]);
+                             location.href ="maestro.html";
+                        }
+		},
+		error: function (jqXHR, textStatus) {
+		}
+	});
+   
     
 }
 
