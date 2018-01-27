@@ -13,12 +13,15 @@ $( document ).ready(function() {
 function cambiarClase(id){
     
     $("#tr"+id).removeClass("success");
+    $("#tr"+id).removeClass("danger");
 
 }
 
 
 
 function actualizar(idalumno, idactividad){
+    var tipo = $("#td"+idalumno).val();
+    
     var ultimo=0;
     var id;
     var id2;
@@ -43,7 +46,10 @@ function actualizar(idalumno, idactividad){
 		success: function (respuesta) {
                         ultimo+=1;
                         if(ultimo==idactividad.length){
-                            $("#tr"+idalumno).addClass("success");
+                            if(tipo=="SI")
+                                $("#tr"+idalumno).addClass("success");
+                            else
+                                $("#tr"+idalumno).addClass("danger");
                         }
                     
                     
@@ -54,6 +60,12 @@ function actualizar(idalumno, idactividad){
 	});
     }
     
+  
+}
+
+function irTutorias(){
+     sessionStorage.setItem("idMaestro", sessionStorage.getItem("idMaestro"));
+     location.href ="tutor.html";
   
 }
 

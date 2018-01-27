@@ -50,7 +50,8 @@ $echo[0].="<thead>
                 <th>Matricula</th>
                 <th>Nombre</th>
                 ". $echo[1]."
-                <th>TOTAL</th>    
+                <th>TOTAL</th>
+                <th>Aprobado</th>   
                 <th>Actualizar</th>                  
               </tr>
             </thead>";
@@ -63,6 +64,8 @@ if( $datos->num_rows>0){
        $idalimno =$cont["idalumno"];
         $tipoCLas=0;
                 $echo[2]="";
+                $caliTotal=0;
+                $aprobrado="SI";
                 for($i=0;$i<$numeroActividades;$i++){
                      /************** obtener las calificaciones*/
                     $query3 = "SELECT * FROM calificaciones  WHERE alumno_idalumno = ? AND materia_idmateria=? AND actividad_idactividad=?";
@@ -76,6 +79,15 @@ if( $datos->num_rows>0){
                     $recu =$row["recuperacion"];
                     if($cali==null){$cali=0;$primera=true;}
                     if($recu==null)$recu=0;
+                    
+                    if($recu==null || $recu==0 ){
+                        $caliTotal+=intval($cali);
+                         if($cali<$calMin)$aprobrado="NO";
+                    }else{
+                        $caliTotal+=intval($recu);
+                        if($recu<$calMin)$aprobrado="NO";
+                    }
+                    
                     /****************/
                     if(intval($cali) < intval($calMin) && !$primera){
                          $echo[2].="<td><input type='number' value=".$cali." class='form-control' style = 'width:80px;'  oninput='cambiarClase(".$idalimno.")' id='inputcal".$idalimno."act".$idactividades[$i]."'  >"
@@ -86,14 +98,21 @@ if( $datos->num_rows>0){
                     }
                     
                 }
-
+                if($numeroActividades>0)
+                    $caliTotal/=$numeroActividades;
+                else
+                    $caliTotal=100;
                 
-                $echo[0].="<tr class='success' id='tr".$idalimno."'>";
+                if($aprobrado=="SI")
+                    $echo[0].="<tr class='success' id='tr".$idalimno."'>";
+                else
+                     $echo[0].="<tr class='danger' id='tr".$idalimno."'>";
+                
                 $echo[0].="<td>".$cont["matricula"]."</td>
                             <td>".$cont["nombre"]."</td>";
        
 
-                $echo[0].=$echo[2]."<td></td><td> <button class='btn btn-warning navbar-btn' onclick='actualizar(".$idalimno.",".json_encode($idactividades).")'>Actualizar</button></td>
+                $echo[0].=$echo[2]."<td >".intval($caliTotal)."</td><td>".$aprobrado." <param id='td".$idalimno."' value=".$aprobrado."></param> </td><td> <button class='btn btn-warning navbar-btn' onclick='actualizar(".$idalimno.",".json_encode($idactividades).")'>Actualizar</button></td>
                 </tr>";
               
     }

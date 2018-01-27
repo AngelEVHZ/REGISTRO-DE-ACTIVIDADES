@@ -25,9 +25,9 @@ and open the template in the editor.
                 <a class="navbar-brand" href="#">UP CHIAPAS</a>
               </div>
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a onclick="irTutorias()">Tutorados</a></li>
+                <li  class="active"><a>Clases</a></li>
               </ul>
               <button class="btn btn-danger navbar-btn" onclick="salir()">Salir</button>
             </div>
@@ -50,6 +50,7 @@ and open the template in the editor.
         
          <br><br> 
          
+       <center>
         <table class="table table-bordered" id="table">
             <thead>
               <tr>
@@ -71,22 +72,15 @@ and open the template in the editor.
                 <td>60</td>
                 <td></td>
               </tr>
-              <tr class="success">
-                <td>153236</td>
-                <td>Jose Francisco</td>
-                <td>100</td>
-                <td>100</td>
-                <td>100</td>
-                <td></td>
-              </tr>
+             
             </tbody>
         </table>
-
+       </center>
         <br><br>
          
          <!-- crear actividad -->
            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#crearActividadM">Nueva Actividad</button>
-           <button type="button" class="btn btn-info btn-lg" onclick="cargarTabla()" >Actualizar Tabla</button>
+           <button type="button" class="btn btn-info btn-lg" onclick="cargarTabla()" >Actualizar Totales</button>
            <!-- Modal -->
         <div id="crearActividadM" class="modal fade" role="dialog">
           <div class="modal-dialog">
