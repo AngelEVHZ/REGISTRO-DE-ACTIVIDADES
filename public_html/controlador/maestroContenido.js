@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var calMin=70;
 
 $( document ).ready(function() {
     cargarContenido(); 
@@ -10,19 +11,49 @@ $( document ).ready(function() {
 });
 
 function cambiarClase(id){
+    
     $("#tr"+id).removeClass("success");
-    $("#tr"+id).addClass("danger");
+
 }
 
+
+
 function actualizar(idalumno, idactividad){
+    var ultimo=0;
     var id;
+    var id2;
     var calificacion=0;
+    var recuperacion=0;
+    
+    idmateria= $("#materia").val();
     for(var i =0;i<idactividad.length;i++){
        id="#inputcal"+idalumno+"act"+idactividad[i];
+       id2="#inputrecu"+idalumno+"act"+idactividad[i];
            calificacion=$(id).val();
-           console.log(calificacion);
+           recuperacion=$(id2).val();
+           if(!recuperacion)recuperacion=null;
+   
+            $.ajax({
+		url: "../controlador/PHP/actualizarCalificacion.php",
+		data: {idalumno:idalumno,idactividad:idactividad[i],idmateria:idmateria,calificacion:calificacion,recuperacion:recuperacion},
+		type: "POST",
+		datatype: "text",
+		beforeSend: function (xhr) {
+		},
+		success: function (respuesta) {
+                        ultimo+=1;
+                        if(ultimo==idactividad.length){
+                            $("#tr"+idalumno).addClass("success");
+                        }
+                    
+                    
+		},
+		error: function (jqXHR, textStatus) {
+                    alert("error");
+		}
+	});
     }
-    cargarTabla();
+    
   
 }
 
@@ -60,7 +91,7 @@ function cargarTabla(){
     idmateria= $("#materia").val();
      $.ajax({
 		url: "../controlador/PHP/cargarTabla.php",
-		data: {corte:corte,idmateria:idmateria},
+		data: {corte:corte,idmateria:idmateria,calMin:calMin},
 		type: "POST",
 		datatype: "text",
 		beforeSend: function (xhr) {

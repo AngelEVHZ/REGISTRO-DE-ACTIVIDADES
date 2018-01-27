@@ -8,6 +8,8 @@ $conn = $db->getConnection();
 
 $id=$_POST['idmateria'];
 $corte=$_POST['corte'];
+$calMin=$_POST['calMin'];
+
 
 
 $echo = array();
@@ -55,25 +57,44 @@ $echo[0].="<thead>
 
 $echo[0].=" <tbody> ";
 $j=0;
+$tipoCLas=0;
 if( $datos->num_rows>0){
     while($cont = $datos->fetch_array(MYSQLI_ASSOC)){
        $idalimno =$cont["idalumno"];
-        
-       $echo[0].="<tr class='success' id='tr".$idalimno."'>
-                <td>".$cont["matricula"]."</td>
-                <td>".$cont["nombre"]."</td>";
-       
-       
-       
+        $tipoCLas=0;
                 $echo[2]="";
-                for($i=0;$i<$numeroActividades;$i++){$echo[2].="<td><input type='number' class='form-control'  oninput='cambiarClase(".$idalimno.")' id='inputcal".$idalimno."act".$idactividades[$i]."'  ></td>";}
+                for($i=0;$i<$numeroActividades;$i++){
+                     /************** obtener las calificaciones*/
+                    $query3 = "SELECT * FROM calificaciones  WHERE alumno_idalumno = ? AND materia_idmateria=? AND actividad_idactividad=?";
+                    $pre3 = $conn->prepare($query3);
+                    $pre3->bind_param("iii",$idalimno,$id,$idactividades[$i]);
+                    $pre3->execute();
+                    $datos3 = $pre3->get_result();
+                    $row = $datos3->fetch_array(MYSQLI_ASSOC);
+                    $primera=false;
+                    $cali =$row["calificacion"];
+                    $recu =$row["recuperacion"];
+                    if($cali==null){$cali=0;$primera=true;}
+                    if($recu==null)$recu=0;
+                    /****************/
+                    if(intval($cali) < intval($calMin) && !$primera){
+                         $echo[2].="<td><input type='number' value=".$cali." class='form-control' style = 'width:80px;'  oninput='cambiarClase(".$idalimno.")' id='inputcal".$idalimno."act".$idactividades[$i]."'  >"
+                                 . "Recuperacion<input type='number' value=".$recu." class='form-control' style = 'width:80px;'  oninput='cambiarClase(".$idalimno.")' id='inputrecu".$idalimno."act".$idactividades[$i]."'  ></td>";
+                         $tipoCLas=1;
+                    }else{
+                        $echo[2].="<td><input type='number' value=".$cali." class='form-control' style = 'width:80px;'  oninput='cambiarClase(".$idalimno.")' id='inputcal".$idalimno."act".$idactividades[$i]."'  ></td>";
+                    }
+                    
+                }
+
+                
+                $echo[0].="<tr class='success' id='tr".$idalimno."'>";
+                $echo[0].="<td>".$cont["matricula"]."</td>
+                            <td>".$cont["nombre"]."</td>";
        
-                
-                
-                
-                
+
                 $echo[0].=$echo[2]."<td></td><td> <button class='btn btn-warning navbar-btn' onclick='actualizar(".$idalimno.",".json_encode($idactividades).")'>Actualizar</button></td>
-              </tr>";
+                </tr>";
               
     }
 }   
