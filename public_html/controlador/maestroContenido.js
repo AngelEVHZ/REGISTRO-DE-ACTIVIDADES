@@ -9,8 +9,29 @@ $( document ).ready(function() {
     
 });
 
+function cambiarClase(id){
+    $("#tr"+id).removeClass("success");
+    $("#tr"+id).addClass("danger");
+}
+
+function actualizar(idalumno, idactividad){
+    var id;
+    var calificacion=0;
+    for(var i =0;i<idactividad.length;i++){
+       id="#inputcal"+idalumno+"act"+idactividad[i];
+           calificacion=$(id).val();
+           console.log(calificacion);
+    }
+    cargarTabla();
+  
+}
+
+
 function cargarContenido(){
     id = sessionStorage.getItem("idMaestro");
+    if(id==null){
+        location.href ="index.html";
+    }
    
      $.ajax({
 		url: "../controlador/PHP/maestroContenido.php",
@@ -72,8 +93,10 @@ function nuevaActividad(){
 		beforeSend: function (xhr) {
 		},
 		success: function (respuesta) {
+                 
 			if(respuesta=="1"){
-                            //succes
+                             cargarTabla();
+                             
                         }
                        
 		},
