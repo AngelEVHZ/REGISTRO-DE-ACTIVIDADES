@@ -106,15 +106,15 @@ if( $datos->num_rows>0){
                     $caliTotal=100;
                 
                 if($aprobrado=="SI")
-                    $echo[0].="<tr class='success' id='tr".$idalimno."'>";
+                    $echo[0].="<tr class='success' >";
                 else
-                     $echo[0].="<tr class='danger' id='tr".$idalimno."'>";
+                     $echo[0].="<tr class='danger' >";
                 
                 $echo[0].="<td>".$cont["matricula"]."</td>
                             <td>".$cont["nombre"]."</td>";
        
 
-                $echo[0].=$echo[2]."<td >".intval($caliTotal)."</td><td>".$aprobrado." <param id='td".$idalimno."' value=".$aprobrado."></param> </td>
+                $echo[0].=$echo[2]."<td >".intval($caliTotal)."</td><td>".$aprobrado."  </td>
                 </tr>";
               
     }
