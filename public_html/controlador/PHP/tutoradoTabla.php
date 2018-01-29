@@ -49,8 +49,7 @@ $datos = $pre->get_result();
 
 $echo[0].="<thead>
               <tr>
-                <th>Matricula</th>
-                <th>Nombre</th>
+    
                 ". $echo[1]."
                 <th>TOTAL</th>
                 <th>Aprobado</th>   
@@ -110,8 +109,7 @@ if( $datos->num_rows>0){
                 else
                      $echo[0].="<tr class='danger' >";
                 
-                $echo[0].="<td>".$cont["matricula"]."</td>
-                            <td>".$cont["nombre"]."</td>";
+               
        
 
                 $echo[0].=$echo[2]."<td >".intval($caliTotal)."</td><td>".$aprobrado."  </td>

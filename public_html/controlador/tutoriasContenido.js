@@ -68,7 +68,7 @@ function llenarMateria(){
 
 function cargarTabla(){
     idAlumno= $("#alumnos").val();
-    corte= $("#corteMateria").val();
+    corte= 1;
     idMateria= $("#materia").val();
     
      $.ajax({
@@ -79,9 +79,45 @@ function cargarTabla(){
 		beforeSend: function (xhr) {
 		},
 		success: function (respuesta) {
-                     contenido = JSON.parse(respuesta);
+                    var contenido = JSON.parse(respuesta);
                          $('#table').empty();
                          $('#table').append( contenido[0] );
+                   
+		},
+		error: function (jqXHR, textStatus) {
+                    alert("error");
+		}
+	});
+         corte= 2;
+         $.ajax({
+		url: "../controlador/PHP/tutoradoTabla.php",
+		data: {idMateria:idMateria,idAlumno:idAlumno,corte:corte,calMin:calMin},
+		type: "POST",
+		datatype: "text",
+		beforeSend: function (xhr) {
+		},
+		success: function (respuesta) {
+                     var contenido = JSON.parse(respuesta);
+                         $('#2table').empty();
+                         $('#2table').append( contenido[0] );
+                   
+		},
+		error: function (jqXHR, textStatus) {
+                    alert("error");
+		}
+	});
+         corte= 3;
+         $.ajax({
+		url: "../controlador/PHP/tutoradoTabla.php",
+		data: {idMateria:idMateria,idAlumno:idAlumno,corte:corte,calMin:calMin},
+		type: "POST",
+		datatype: "text",
+		beforeSend: function (xhr) {
+		},
+		success: function (respuesta) {
+                    var  contenido = JSON.parse(respuesta);
+                         $('#3table').empty();
+                         $('#3table').append( contenido[0] );
                    
 		},
 		error: function (jqXHR, textStatus) {
