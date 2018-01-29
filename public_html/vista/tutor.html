@@ -14,6 +14,8 @@ and open the template in the editor.
          <script type="text/javascript" src="../controlador/jquery/jquery-3.3.1.js"></script>
          <script type="text/javascript" src="../controlador/bootstrap/bootstrap.min.js"></script>
          <script type="text/javascript" src="../controlador/jquery/jquery-3.3.1.min.js"></script>
+         
+          <script type="text/javascript" src="../controlador/iniciarSesion.js"></script>
           <script type="text/javascript" src="../controlador/tutoriasContenido.js"></script>
     </head>
     <body>
@@ -32,7 +34,30 @@ and open the template in the editor.
           </nav>
         
         
+         <label >Alumno:</label>
+        <select class="form-control" id="alumnos"  onchange="llenarMateria()" style="width:400px">
+        </select>
+         <br><br>
+         
+         <label >Materia</label>
+        <select class="form-control" id="materia"  onchange="cargarTabla()" style="width:200px">
+        </select>
+         
+         <br>
+         
+        <label >Corte:</label>
+        <select class="form-control" id="corteMateria" onchange="cargarTabla()" style="width:200px">
+          <option value="1">1</option>
+          <option  value="2">2</option>
+          <option  value="3">3</option>
+        </select>
         
-        <div>TODO write content</div>
+           <br><br>
+       <center>
+        <table class="table table-bordered" id="table">
+          
+        </table>
+         </center>
+        
     </body>
 </html>
